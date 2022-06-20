@@ -1,14 +1,11 @@
 const express = require('express');
-const controllerLogin = require('./controllers/controllerLogin');
-const controllerUser = require('./controllers/controllerUser');
+const router = require('./routes');
 const middlewareError = require('./middleware/error');
 
 const app = express();
 
 app.use(express.json());
-app.use('/login', controllerLogin);
-app.use('/user', controllerUser);
-
+app.use(router);
 app.use(middlewareError);
 
 module.exports = app;

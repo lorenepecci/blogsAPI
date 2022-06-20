@@ -11,8 +11,9 @@ const authentication = async ({ email, password }) => {
         where: { email, password },
     });
 
-    if (!finduser) {
-      throw Error({ status: 400, message: 'Invalid fields' });
+  if (!finduser) {
+      const e = { status: 400, message: 'Invalid fields' };
+      throw e;
     }
 
     const token = generateJWTToken(JSON.stringify(finduser));

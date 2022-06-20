@@ -1,16 +1,18 @@
 const express = require('express');
 
 const router = express.Router();
-const service = require('../services/serviceUser');
+const service = require('../services/serviceCategory');
 
 const { authenticationMiddleware } = require('../middleware/auth');
-const { validUser } = require('../middleware/validData');
+const { validCategories } = require('../middleware/validData');
 
-router.post('/', validUser, async (req, res) => {
+router.post('/', authenticationMiddleware, validCategories, async (req, res) => {
   try {
     const resp = await service.create(req.body);
+    console.log('resp');
     res.status(201).json(resp);
   } catch (err) {
+    console.log('err');
     res.status(err.status).json({ message: err.message });
   }
 });
@@ -18,20 +20,6 @@ router.post('/', validUser, async (req, res) => {
 router.get('/', authenticationMiddleware, async (req, res) => {
   try {
     const resp = await service.getAll();
-    res.status(201).json(resp);
-  } catch (err) {
-    res.status(err.status).json({ message: err.message });
-  }
-}); 
-
-router.get('/:id', authenticationMiddleware, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const resp = await service.get(id);
-    if (!resp) {
-      const erro = { status: 404, message: 'User does not exist' };
-      throw erro;
-    }
     res.status(201).json(resp);
   } catch (err) {
     res.status(err.status).json({ message: err.message });

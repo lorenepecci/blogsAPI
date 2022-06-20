@@ -29,10 +29,12 @@ module.exports = {
       published: {
         allowNull: false,
         type: Sequelize.DATE,
+        default: Sequelize.fn('now')
       },
       updated: {
         allowNull: false,
         type: Sequelize.DATE,
+        default: Sequelize.fn('now')
       },
     } );
   },
