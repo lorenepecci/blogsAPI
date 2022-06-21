@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize');
 const { BlogPost, Category, User, PostCategory } = require('../database/models');
 
 const findUserLogged = (userEmail) => User.findAll()
@@ -85,9 +86,28 @@ const remove = async (userEmail, id) => {
     throw erro;
   }
   const removed = await BlogPost.destroy({ where: { id } });
-
   return removed > 0;
 };  
+
+const getQuery = async (query) => {
+  console.log('queryyyyyyyyyyyy', query);
+  const { Op } = Sequelize;
+  const response = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      {
+        model: Category,
+        as: 'categories',
+        through: { attributes: [] },
+      },
+    ],
+    where: {
+      [Op.or]: { title: { [Op.like]: `%${query}%` }, content: { [Op.like]: `%${query}%` },
+      },
+    },
+  });
+  return response;
+};
  
 module.exports = {
   create,
@@ -95,4 +115,5 @@ module.exports = {
   getId,
   update,
   remove,
+  getQuery,
 };

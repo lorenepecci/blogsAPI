@@ -27,6 +27,15 @@ router.get('/', authenticationMiddleware, async (req, res) => {
   }
 });  
 
+router.get('/search', authenticationMiddleware, async (req, res) => {
+  try {
+    const resp = await service.getQuery(req.query.q);
+    res.status(200).json(resp);
+  } catch (err) {
+    res.status(err.status || 500).json({ message: err.message });
+  }
+});
+
 router.get('/:id', authenticationMiddleware, validIdExists, async (req, res) => {
   try {
     const { id } = req.params;
