@@ -19,8 +19,8 @@ router.post('/', authenticationMiddleware, validPost, async (req, res) => {
 
 router.get('/', authenticationMiddleware, async (req, res) => {
   try {
-    const { email } = res.locals.payload;
-    const resp = await service.getAll(email);
+    // const { email } = res.locals.payload;
+    const resp = await service.getAll();
     res.status(201).json(resp);
   } catch (err) {
     res.status(err.status).json({ message: err.message });

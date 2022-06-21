@@ -1,11 +1,11 @@
-const { Categorie } = require('../database/models');
+const { Category } = require('../database/models');
 
 const create = async (body) => {
   const { name } = body;
-  const response = await Categorie.create({ name });
+  const response = await Category.create({ name });
   return response;
 };
 
-const getAll = async () => Categorie.findAll();
+const getAll = async () => Category.findAll();
 
 module.exports = { create, getAll };

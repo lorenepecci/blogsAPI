@@ -18,7 +18,7 @@ router.post('/', validUser, async (req, res) => {
 router.get('/', authenticationMiddleware, async (req, res) => {
   try {
     const resp = await service.getAll();
-    res.status(201).json(resp);
+    res.status(200).json(resp);
   } catch (err) {
     res.status(err.status).json({ message: err.message });
   }
@@ -32,7 +32,7 @@ router.get('/:id', authenticationMiddleware, async (req, res) => {
       const erro = { status: 404, message: 'User does not exist' };
       throw erro;
     }
-    res.status(201).json(resp);
+    res.status(200).json(resp);
   } catch (err) {
     res.status(err.status).json({ message: err.message });
   }

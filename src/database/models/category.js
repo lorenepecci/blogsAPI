@@ -1,5 +1,5 @@
 const CategoriesSchema = ( sequelize, dataTypes ) => {
-  const Categories = sequelize.define( "Categorie", {
+  const Categories = sequelize.define( "Category", {
     id:{ type: dataTypes.INTEGER, primaryKey: true, autoIncrement: true, },
     name: dataTypes.STRING(255),
   }, {
@@ -7,7 +7,7 @@ const CategoriesSchema = ( sequelize, dataTypes ) => {
   } );
 
   Categories.associate = (models) => {
-    Categories.hasMany(models.PostCategorie, {as: 'postcategorie', foreignKey: 'categoryId'});
+    Categories.hasMany(models.PostCategory, {as: 'postcategory', foreignKey: 'categoryId'});
   }
 
   return Categories;

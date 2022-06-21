@@ -5,6 +5,7 @@ const create = async (body) => {
   const { displayName, email, password, image } = body;
   const finduser = await User.findOne({
     where: { email },
+    attributes: { exclude: ['password'] },
   });
 
   if (finduser) {
@@ -17,7 +18,7 @@ const create = async (body) => {
   return { token };
 };
 
-const getAll = async () => User.findAll();
+const getAll = async () => User.findAll({ attributes: { exclude: ['password'] } });
 
 const get = async (id) => {
   const response = await User.findByPk(id);

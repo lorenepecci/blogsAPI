@@ -1,9 +1,11 @@
 const { User } = require('../database/models');
 const { generateJWTToken } = require('../utils/generateJWT');
 
-const authentication = async ({ email, password }) => {
-    if (!email || !password) {
-      throw Error({ status: 400, message: 'Some required fields are missing' });
+const authentication = async (body) => {
+  const { email, password } = body;
+  if (!email || !password) {
+    const err = { status: 400, message: 'Some required fields are missing' };
+      throw err;
     }
 
     const finduser = await User.findOne({

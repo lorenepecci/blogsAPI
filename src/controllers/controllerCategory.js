@@ -20,7 +20,7 @@ router.post('/', authenticationMiddleware, validCategories, async (req, res) => 
 router.get('/', authenticationMiddleware, async (req, res) => {
   try {
     const resp = await service.getAll();
-    res.status(201).json(resp);
+    res.status(200).json(resp);
   } catch (err) {
     res.status(err.status).json({ message: err.message });
   }
