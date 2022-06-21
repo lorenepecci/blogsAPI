@@ -26,4 +26,17 @@ router.get('/', authenticationMiddleware, async (req, res) => {
   }
 });  
 
+router.get('/:id', authenticationMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const resp = await service.getId(id);
+    if (!resp) {
+      res.status(404).json({ message: 'Post does not exist' });
+    }
+    res.status(200).json(resp);
+  } catch (err) {
+    res.status(err.status || 500).json({ message: err.message });
+  }
+});  
+
 module.exports = router;
