@@ -22,7 +22,7 @@ router.get('/', authenticationMiddleware, async (req, res) => {
     const resp = await service.getAll();
     res.status(200).json(resp);
   } catch (err) {
-    res.status(err.status).json({ message: err.message });
+    res.status(err.status || 500).json({ message: err.message });
   }
 });  
 
