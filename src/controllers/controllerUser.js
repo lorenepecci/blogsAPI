@@ -38,4 +38,14 @@ router.get('/:id', authenticationMiddleware, async (req, res) => {
   }
 }); 
 
+router.delete('/me', authenticationMiddleware, async (_req, res) => {
+  try {
+    const { email } = res.locals.payload;
+    await service.remove(email);
+    res.status(204).end();
+  } catch (err) {
+    res.status(err.status).json({ message: err.message });
+  }
+});
+
 module.exports = router;

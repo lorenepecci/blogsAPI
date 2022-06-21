@@ -73,10 +73,26 @@ const update = async ({ title, content }, userEmail, id) => {
 
   return updatePost > 0;
 };  
+
+const remove = async (userEmail, id) => {
+  const userLogged = await findUserLogged(userEmail).then((item) => item.id);
+  const findPostUserId = await BlogPost.findOne({
+    where: { id },
+  }).then((obj) => obj.userId);
+  
+  if (userLogged !== findPostUserId) {
+    const erro = { status: 401, message: 'Unauthorized user' };
+    throw erro;
+  }
+  const removed = await BlogPost.destroy({ where: { id } });
+
+  return removed > 0;
+};  
  
 module.exports = {
   create,
   getAll,
   getId,
   update,
+  remove,
 };
