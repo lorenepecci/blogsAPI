@@ -47,16 +47,17 @@ const validCategories = (req, _res, next) => {
   return next();
 };
 
-const validPost = (req, _res, next) => {
+const validPost = (req, res, next) => {
   console.log('valid');
   const { error } = posts.validate(req.body);
   if (error) {
-    const { type } = error.details[0];
+    /* const { type } = error.details[0];
     const statusCode = {
       'any.required': 400,
-    };
-    const erro = { status: statusCode[type], message: 'Some required fields are missing' };
-    throw erro;
+    }; */
+   /*  const erro = { status: statusCode[type], message: 'Some required fields are missing' };
+    throw erro; */
+    return res.status(400).json({ message: 'Some required fields are missing' });
   }
   return next();
 };

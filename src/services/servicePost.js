@@ -1,4 +1,4 @@
-const { BlogPost, Category, User } = require('../database/models');
+const { BlogPost, Category, User, PostCategory } = require('../database/models');
 
 const findUserLogged = (userEmail) => User.findAll()
     .then((all) => all.find((item) => item.email === userEmail));
@@ -12,6 +12,7 @@ const create = async ({ title, content, categoryIds }, userEmail) => {
     const erro = { status: 400, message: '"categoryIds" not found' };
     throw erro;
   }
+  
   const createPost = await BlogPost.create({
     title,
     content,
@@ -19,6 +20,9 @@ const create = async ({ title, content, categoryIds }, userEmail) => {
     updated: new Date(),
     published: new Date(),
   });
+  await Promise.all(categoryIds.map(async (categoryId) => {
+    await PostCategory.create({ postId: createPost.id, categoryId });
+  }));
   return createPost;
 };  
 
@@ -28,7 +32,7 @@ const getAll = async () => {
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       {
         model: Category,
-        as: 'category',
+        as: 'categories',
         through: { attributes: [] },
       }],
   });
