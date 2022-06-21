@@ -17,6 +17,11 @@ const posts = Joi.object({
   categoryIds: Joi.required(),
 });
 
+const postUpdate = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 const validUser = (req, _res, next) => {
   console.log('valid');
   const { error } = users.validate(req.body);
@@ -62,4 +67,13 @@ const validPost = (req, res, next) => {
   return next();
 };
 
-module.exports = { validUser, validCategories, validPost };
+const validUpdate = (req, res, next) => {
+  console.log('valid');
+  const { error } = postUpdate.validate(req.body);
+  if (error) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+  return next();
+};
+
+module.exports = { validUser, validCategories, validPost, validUpdate };
