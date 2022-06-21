@@ -21,7 +21,7 @@ const create = async (body) => {
 const getAll = async () => User.findAll({ attributes: { exclude: ['password'] } });
 
 const get = async (id) => {
-  const response = await User.findByPk(id);
+  const response = await User.findByPk(id, { attributes: { exclude: ['password'] } });
   return response;
 };
 

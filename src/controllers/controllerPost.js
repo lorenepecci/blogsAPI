@@ -19,26 +19,11 @@ router.post('/', authenticationMiddleware, validPost, async (req, res) => {
 
 router.get('/', authenticationMiddleware, async (req, res) => {
   try {
-    // const { email } = res.locals.payload;
     const resp = await service.getAll();
-    res.status(201).json(resp);
+    res.status(200).json(resp);
   } catch (err) {
     res.status(err.status).json({ message: err.message });
   }
 });  
-
-/* router.get('/:id', authenticationMiddleware, async (req, res) => {
-  try {
-    const { id } = req.params;
-    const resp = await service.get(id);
-    if (!resp) {
-      const erro = { status: 404, message: 'User does not exist' };
-      throw erro;
-    }
-    res.status(201).json(resp);
-  } catch (err) {
-    res.status(err.status).json({ message: err.message });
-  }
-});  */
 
 module.exports = router;
