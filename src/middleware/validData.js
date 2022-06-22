@@ -73,7 +73,7 @@ const validUpdate = (req, res, next) => {
   if (error) {
     return res.status(400).json({ message: 'Some required fields are missing' });
   }
-  return next();
+  next();
 };
 
 module.exports = { validUser, validCategories, validPost, validUpdate };

@@ -64,15 +64,13 @@ const update = async ({ title, content }, userEmail, id) => {
     const erro = { status: 401, message: 'Unauthorized user' };
     throw erro;
   }
-  const [updatePost] = await BlogPost.update({
+  await BlogPost.update({
     title,
     content,
     userId: userLogged,
     updated: new Date(),
     published: new Date(),
   }, { where: { id } });
-
-  return updatePost > 0;
 };  
 
 const remove = async (userEmail, id) => {
@@ -85,8 +83,7 @@ const remove = async (userEmail, id) => {
     const erro = { status: 401, message: 'Unauthorized user' };
     throw erro;
   }
-  const removed = await BlogPost.destroy({ where: { id } });
-  return removed > 0;
+  await BlogPost.destroy({ where: { id } });
 };  
 
 const getQuery = async (query) => {
