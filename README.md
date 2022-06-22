@@ -1,6 +1,6 @@
 # Esta é uma aplicação backend em node.js
 
-### Este projeto é o desenvolvimento de Rest API utilizando express, sequelize, JWT e Joi.
+### Este projeto é o desenvolvimento de uma RestAPI utilizando express, sequelize, JWT e Joi.
 
 # Tecnologias Usadas
 Nesse projeto, utilizou-se:
