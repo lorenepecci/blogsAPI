@@ -87,7 +87,6 @@ const remove = async (userEmail, id) => {
 };  
 
 const getQuery = async (query) => {
-  console.log('queryyyyyyyyyyyy', query);
   const { Op } = Sequelize;
   const response = await BlogPost.findAll({
     include: [
